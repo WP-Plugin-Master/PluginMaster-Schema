@@ -1,5 +1,5 @@
 <?php
-namespace  App\system\schema;
+namespace  PluginMaster\Schema;
 
 
 use PluginMaster\Schema\base\SchemaBase;
