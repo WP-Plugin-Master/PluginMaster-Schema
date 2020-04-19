@@ -1,0 +1,36 @@
+{
+  "name": "plugin-master/schema",
+  "description": "Schema Builder for PHP",
+  "license": "MIT",
+  "homepage": "https://github.com/emrancu/PluginMaster-Schema",
+  "support": {
+    "issues": "https://github.com/emrancu/PluginMaster-Schema/issues",
+    "source": "https://github.com/emrancu/PluginMaster-Schema"
+  },
+  "authors": [
+    {
+      "name": "AL EMRAN",
+      "email": "emrancu1@gmail.com"
+    }
+  ],
+  "keywords": [
+    "Schema Builder",
+    "Schema Builder for PHP",
+    "Schema Builder for WordPress",
+    "PluginMaster Schema Builder Validator",
+    "WordPress Plugin Development framework"
+  ],
+  "autoload": {
+    "classmap": [],
+    "psr-4": {
+      "PluginMaster\\Schema\\": "src/"
+    }
+  },
+  "require": {
+    "php": ">=7.0.0"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+
+  }
+
