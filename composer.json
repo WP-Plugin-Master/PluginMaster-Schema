@@ -2,10 +2,10 @@
   "name": "plugin-master/schema",
   "description": "Schema Builder for PHP",
   "license": "MIT",
-  "homepage": "https://github.com/emrancu/PluginMaster-Schema",
+  "homepage": "https://github.com/WP-Plugin-Master/PluginMaster-Schema",
   "support": {
-    "issues": "https://github.com/emrancu/PluginMaster-Schema/issues",
-    "source": "https://github.com/emrancu/PluginMaster-Schema"
+    "issues": "https://github.com/WP-Plugin-Master/PluginMaster-Schema/issues",
+    "source": "https://github.com/WP-Plugin-Master/PluginMaster-Schema"
   },
   "authors": [
     {
@@ -27,7 +27,8 @@
     }
   },
   "require": {
-    "php": ">=7.0.0"
+    "php": "^7.0|^8.0",
+    "plugin-master/contracts": "^1.0"
   },
   "minimum-stability": "dev",
   "prefer-stable": true
