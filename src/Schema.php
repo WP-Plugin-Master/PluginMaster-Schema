@@ -2,9 +2,9 @@
 namespace  PluginMaster\Schema;
 
 
-use PluginMaster\Contracts\Schema\Schema as SchemaContract;
+use PluginMaster\Contracts\Schema\SchemaInterface ;
 
-class Schema implements SchemaContract
+class Schema implements SchemaInterface
 {
     public $sql;
     private $table = '';
