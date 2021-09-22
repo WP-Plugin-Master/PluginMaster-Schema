@@ -6,7 +6,7 @@ use PluginMaster\Contracts\Schema\SchemaInterface ;
 
 class Schema implements SchemaInterface
 {
-    public $sql;
+    private $sql;
     private $table = '';
     private $column = '';
     private $columns = [];
@@ -278,7 +278,25 @@ class Schema implements SchemaInterface
         return $this;
     }
 
+
+    /**
+     * @return mixed
+     */
+    public function getSql(){
+        return $this->sql;
+    }
+
+
+    /**
+     * @param $sql
+     * @return mixed
+     */
+    public static function rawSql( $sql ){
+        return $sql;
+    }
+
 }
+
 
 
 ?>
