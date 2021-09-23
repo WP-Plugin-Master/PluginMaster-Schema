@@ -2,10 +2,12 @@
 namespace  PluginMaster\Schema;
 
 
-use PluginMaster\Contracts\Schema\SchemaInterface ;
+use Closure;
+use PluginMaster\Contracts\Schema\SchemaInterface;
 
 class Schema implements SchemaInterface
 {
+    private static $instance = null;
     private $sql;
     private $table = '';
     private $column = '';
@@ -18,8 +20,9 @@ class Schema implements SchemaInterface
     private $primaryKey = false;
     private $increment = false;
     private $foreignData = '';
+    private $tableName = '';
     private $table_prefix;
-
+    private $create = false;
 
     public function __construct() {
         global $table_prefix;
@@ -32,11 +35,13 @@ class Schema implements SchemaInterface
      * @return Schema|mixed
      */
     public static function create( $table, $closure ) {
-        $self        = (new self);
+        $self        = new self();
         $self->sql   = 'create table';
         $self->table = $self->table_prefix . $table;
 
-        if ( $closure instanceof \Closure ) {
+        $self->create = true;
+
+        if ( $closure instanceof Closure ) {
             call_user_func( $closure, $self );
         }
 
@@ -45,6 +50,15 @@ class Schema implements SchemaInterface
         return $self;
     }
 
+    /**
+     * @param $sql
+     * @return mixed
+     */
+    public static function rawSql( $sql ) {
+        $self      = new self();
+        $self->sql = $sql;
+        return $self;
+    }
 
     /**
      * @param $column
@@ -280,23 +294,44 @@ class Schema implements SchemaInterface
 
 
     /**
+     * process sql for execution
+     */
+    public function execute() {
+
+        global $wpdb;
+
+        $table    = $this->table;
+        $charset  = $wpdb->get_charset_collate();
+        $finalSql = '';
+        if ( $this->create && $table && ($wpdb->get_var( $wpdb->prepare( "SHOW TABLES LIKE %s", $table ) ) !== $table) ) {
+            $finalSql = $this->getSql() . $charset;
+        }
+
+        if ( !$this->create ) {
+            $finalSql = $this->getSql() . $charset;
+        }
+
+        if ( $finalSql ) $this->executeSQL( $finalSql );
+    }
+
+    /**
      * @return mixed
      */
-    public function getSql(){
+    public function getSql() {
         return $this->sql;
     }
 
-
     /**
+     * finally execute sql query
      * @param $sql
-     * @return mixed
      */
-    public static function rawSql( $sql ){
-        return $sql;
+    private function executeSQL( $sql ) {
+        require_once(ABSPATH . '/wp-admin/includes/upgrade.php');
+        dbDelta( $sql );
     }
 
-}
 
+}
 
 
 ?>
