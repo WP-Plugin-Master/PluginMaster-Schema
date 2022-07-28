@@ -8,7 +8,6 @@ use PluginMaster\Contracts\Schema\SchemaInterface;
 
 class Schema implements SchemaInterface
 {
-    private static $instance = null;
     private string $sql;
     private string $table = '';
     private string $column = '';
@@ -69,7 +68,7 @@ class Schema implements SchemaInterface
      * @param  string|int  $places
      * @return Schema
      */
-    public function decimal(string $column, string|int $length = 20, string|int $places = 2): self
+    public function decimal(string $column, int $length = 20, int $places = 2): self
     {
         $this->currentColumn = "`".$column."` decimal(".$length.",".$places.")";
         $this->addColumn($this->currentColumn);
@@ -125,10 +124,10 @@ class Schema implements SchemaInterface
 
     /**
      * @param  string  $column
-     * @param  string|int  $length
+     * @param  int  $length
      * @return Schema
      */
-    public function integer(string $column, string|int $length = 10): self
+    public function integer(string $column, int $length = 10): self
     {
         $this->currentColumn = "`".$column."` int(".$length.")";
         $this->addColumn($this->currentColumn);
@@ -205,7 +204,7 @@ class Schema implements SchemaInterface
      * @param  string|int  $length
      * @return Schema
      */
-    public function bigInt(string $column, string|int $length = 20): self
+    public function bigInt(string $column, int $length = 20): self
     {
         $this->currentColumn = "`".$column."` bigint(".$length.")";
         $this->addColumn($this->currentColumn);
@@ -214,10 +213,10 @@ class Schema implements SchemaInterface
 
     /**
      * @param  string  $column
-     * @param  int|string  $length
+     * @param  int  $length
      * @return Schema
      */
-    public function string(string $column, int|string $length = 255): self
+    public function string(string $column, int $length = 255): self
     {
         $this->currentColumn = "`".$column."` varchar(".$length.")";
         $this->addColumn($this->currentColumn);
@@ -271,7 +270,7 @@ class Schema implements SchemaInterface
      * @param  mixed  $value
      * @return Schema
      */
-    public function default(mixed $value): self
+    public function default($value): self
     {
         $this->defaultValue = $value;
         $this->updateColumn($this->currentColumn);
